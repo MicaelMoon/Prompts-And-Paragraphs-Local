@@ -1,0 +1,61 @@
+.container.battle-menu {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.ally-column,
+.enemy-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 45%;
+}
+
+.entity-card {
+    background-color: #1e1e1e;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.entity-card:hover {
+    transform: scale(1.33);
+}
+
+.player-card {
+    background-color: #1b213f;
+}
+
+.player-card:hover {
+    border-color: aqua;
+}
+
+.ally-card {
+    background-color: #304937;
+}
+
+.ally-card:hover {
+    border-color: #35b815;
+}
+
+.enemy-card {
+    background-color: #3a1f1f;
+}
+
+.enemy-card:hover {
+    border-color: #d10a0a;
+}
+
+.entity-card h3 {
+    margin: 0;
+    color: #fff;
+}
+
+.entity-card p {
+    margin: 0.25rem 0;
+}

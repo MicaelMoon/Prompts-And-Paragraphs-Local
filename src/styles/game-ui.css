@@ -1,0 +1,56 @@
+body, html {
+    margin:0;
+    height:100%;
+}
+
+.container {
+    display:flex;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 1rem;
+}
+
+.game-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  gap: 12px;    
+  min-height: 140px; /* ensures both rows stay the same height */
+}
+
+.column{
+    width: 885px;
+    padding: 1rem;
+}
+
+
+.game-column {
+    background-color: rgb(17, 46, 8);
+}
+
+.chat-column {
+    background-color: rgb(11, 59, 59);
+}
+
+.player-prompt {
+    background-color:rgb(18, 82, 82);
+    /*
+    padding-left: 450px;
+    */
+}
+
+.chat-container {
+    line-height: 2;
+}
+
+.message-container {
+    line-height: 1.5;
+}
+
+.text {
+    color:white;
+}
+
+.npc-text {
+    color:rgb(164, 142, 238);
+}

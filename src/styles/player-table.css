@@ -1,0 +1,16 @@
+.player-table {
+    display: flex; 
+    justify-content: space-around;
+}
+
+.actions {
+    display: flex;
+}
+/*
+.character-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 45%;
+}
+    */

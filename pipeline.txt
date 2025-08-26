@@ -1,0 +1,3 @@
+2025-08-25
+    - Set up Git Hub
+    - Spend some time setting up thee basic rules of the game and connect the ui elements to the chat bot
