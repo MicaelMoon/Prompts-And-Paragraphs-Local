@@ -102,7 +102,9 @@ const GameUI:React.FC<GameUIProps> = ({player}) =>{
         setMessageIsLoading(false)
     }
 
-    function attack(target:Entity, damage:number,flavorText:string){
+    async function attack(target:Entity, damage:number,flavorText:string){
+        setMessageIsLoading(true)
+
         const updatedEnemyList = [...enemyList]
         updatedEnemyList.map((enemy:Entity) => {
             if(enemy.name === target.name){
@@ -111,12 +113,20 @@ const GameUI:React.FC<GameUIProps> = ({player}) =>{
         })
 
         setEnemyList(updatedEnemyList)
-        console.log("Debugging")
+        let response:string;
         if(flavorText !== "" && flavorText !== null){
             setPlayerPrompts(prev => [...prev, flavorText])
+            let prompt = flavorText;
+            response = await invoke<string>("send_prompt", { prompt })
         } else{
-            setPlayerPrompts(prev => [...prev, `I attack ${target.name}.`])
+            let prompt = `I attack ${target.name}.`
+            setPlayerPrompts(prev => [...prev, prompt])
+            response = await invoke<string>("send_prompt", { prompt })
         }
+
+        setAiResponses((prev) => [...prev, response])
+
+        setMessageIsLoading(false)
     }
 }
 
