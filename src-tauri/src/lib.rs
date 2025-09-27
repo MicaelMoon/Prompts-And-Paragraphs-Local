@@ -1,5 +1,6 @@
 use once_cell::sync::Lazy;
 use reqwest::{Client, Response};
+use rusqlite::{params, Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
@@ -31,6 +32,30 @@ struct ChatMessageOwned {
 }
 
 static ChatHistory: Lazy<Mutex<Vec<&str>>> = Lazy::new(|| Mutex::new(vec![]));
+
+#[tauri::command]
+fn debug() -> Result<(), String> {
+    let conn = Connection::open("mydb.sqlite").map_err(|e| e.to_string())?;
+    println!("Starting database");
+
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS items (
+             id    INTEGER PRIMARY KEY AUTOINCREMENT,
+             name  TEXT NOT NULL
+         )",
+        [],
+    )
+    .map_err(|e| e.to_string())?;
+
+    add_item(&conn, "Third item").map_err(|e| e.to_string())?;
+    println!("Item added");
+    Ok(())
+}
+
+fn add_item(conn: &Connection, name: &str) -> rusqlite::Result<()> {
+    conn.execute("INSERT INTO items (name) VALUES (?1)", params![name])?;
+    Ok(())
+}
 
 fn add_message(message: &str) {
     let mut chat_history = ChatHistory.lock().unwrap();
@@ -93,7 +118,7 @@ async fn send_prompt(prompt: &str) -> Result<String, String> {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![send_prompt])
+        .invoke_handler(tauri::generate_handler![send_prompt, debug])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

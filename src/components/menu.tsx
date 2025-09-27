@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {Entity} from "../types/entity"
+import { invoke } from "@tauri-apps/api/core";
 
 enum States {
     Main = "Main",
@@ -14,9 +15,12 @@ type MenuProps = {
 
 const Menu:React.FC<MenuProps> = ({setPlayer, player}) => { /* Might not update properly yet when calling to setPlayer. Might neeed useEffect. */
     const [currentState, setCurrentState] = useState<string>(States.Main);
+    const [errorText, setErrorText] = useState<string>("No error")
 
     return (
         <div>
+            <h1>{errorText}</h1>
+            <button onClick={() => debug()}>Debug</button>
             {currentState !== States.Main ? (
                 <button onClick={() => setCurrentState(States.Main)}>Main menu</button>
             ) : (<></>)}
@@ -37,6 +41,12 @@ const Menu:React.FC<MenuProps> = ({setPlayer, player}) => { /* Might not update 
             )}
         </div>
     )
+
+    async function debug () {
+        setErrorText("in debug")
+        let response = await invoke("debug");
+        setErrorText("Exit debug")
+    }
 }
 
 export default Menu;
