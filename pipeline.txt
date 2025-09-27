@@ -1,2 +1,5 @@
 2025-08-25
     - Spend some time setting up thee basic rules of the game and connect the ui elements to the chat bot
+
+2025-09-27
+    - Set up the fundamentals for the main menu and save creation (to avoid the headache of working backwards)

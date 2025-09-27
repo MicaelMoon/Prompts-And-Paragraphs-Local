@@ -1,9 +1,9 @@
-type chatProps = {
+type ChatProps = {
     playerPrompts: string[];
     aiResponses: string[];
 }
 
-const Chat:React.FC<chatProps> = ({playerPrompts, aiResponses}) => {
+const Chat:React.FC<ChatProps> = ({playerPrompts, aiResponses}) => {
     return(
         <>
             {playerPrompts.map((prompt, index) => (
